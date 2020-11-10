@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite errors="0" failures="1" hostname="BANTC352067487" name="pytest" skipped="0" tests="4" time="239.282" timestamp="2020-10-29T21:38:21.166183"><testcase classname="AppTests.test_MyVehicles.Test_HPMyVehicles" file="AppTests\test_MyVehicles.py" line="16" name="test_MyVehicleDetails[firefox-WN15XYO-Vehicle Details]" time="15.164"><failure message="selenium.common.exceptions.WebDriverException: Message: Reached error page: about:neterror?e=nssFailure2&amp;u=https%3A//authenticate.bt.com/adfs/ls/%3Fclient-request-id%3D95198218-6e5a-4d9a-b83d-cb816833c08c%26wa%3Dwsignin1.0%26wtrealm%3Durn%253afederation%253aMicrosoftOnline%26wctx%3DLoginOptions%253D3%2526estsredirect%253d2%2526estsrequest%253drQIIAY2RPWgUQQCFb24vZxL8CWJx6UK4JsLsz_zvQkCvkIjEEwuLa8Ls7GxuL7e75-7sJZdKxcLCwsYmYGN5WFkFq7TGJnVKC5FUYmUjuAqWgs3r3sfjezctZLtBl_HQ08SLoCeYgiQOBRRIMBgL6UskkI-1W1xfXuk8W309yI62jzc_PR3ik5dzsDE0ZlIGjpPOJnlh5Njo0thFMq3KeKy1sVWeOrIyQ-cYgDMAvgIwb3Y5UdRH2oeUcwGJChGU2MNQMI4F8QUXVJ83r_Vv10X0O_IiOdQXzaulHmtldqRSeZWZ782lOC_SnUlemiOrS5nrR9hzIdeRhiQMFfQJo5AiF8VaMQ9rNbdW_y7eLeRkaO8nWZTvl3amzfsaEVNMOPEhozqEhHIGhU85JFiGXFMZkZCdWuv_RDh2pGNZjc1nqzNNopm0yyosZCqzRGa3wj86zlrgonXZtYLFxfaK1WmsNX60wNuFWu_o-f1-78vPrSfpm4_vNtYbpwtOjO714zLdO-g_nhUPew9Go8PhFr6bzKbFHV31dvPqgCpv8Ghbik0eeK_a4FsbvLjU-LD0_8-cL9-oDbmwNof8NY8FrggwHpxcafwC0%26cbcxt%3D%26username%3Dvidya.subramanian%2540bt.com%26mkt%3D%26lc%3D&amp;c=UTF-8&amp;d=The%20connection%20to%20authenticate.bt.com%20was%20interrupted%20while%20the%20page%20was%20loading.">self = &lt;AppTests.test_MyVehicles.Test_HPMyVehicles object at 0x03E08640&gt;
+InRegNo = &apos;WN15XYO&apos;, InOptVal = &apos;Vehicle Details&apos;
+
+    @pytest.mark.parametrize(&quot;InRegNo,InOptVal&quot;,
+                              mvtd.MyVehicleDetails_td()
+                              )
+    def test_MyVehicleDetails(self,InRegNo,InOptVal):
+        self.LaunchFP = LaunchFP(self.driver)
+        self.HomePage = HomePage(self.driver)
+&gt;       HmePg = self.LaunchFP.LoginToFP(scd.UsrName,scd.UsrPwd)
+
+AppTests\test_MyVehicles.py:23: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+AppPages\aFPLaunch.py:44: in LoginToFP
+    self.ClickElement(self.Submit_btn)
+AppPages\WebdriverExtensions.py:33: in ClickElement
+    WebDriverWait(self.driver,20).until(EC.visibility_of_element_located(locatorSelect)).click()
+..\..\..\..\..\appdata\local\programs\python\python38-32\lib\site-packages\selenium\webdriver\remote\webelement.py:80: in click
+    self._execute(Command.CLICK_ELEMENT)
+..\..\..\..\..\appdata\local\programs\python\python38-32\lib\site-packages\selenium\webdriver\remote\webelement.py:633: in _execute
+    return self._parent.execute(command, params)
+..\..\..\..\..\appdata\local\programs\python\python38-32\lib\site-packages\selenium\webdriver\remote\webdriver.py:321: in execute
+    self.error_handler.check_response(response)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;selenium.webdriver.remote.errorhandler.ErrorHandler object at 0x0468CB98&gt;
+response = {&apos;status&apos;: 500, &apos;value&apos;: &apos;{&quot;value&quot;:{&quot;error&quot;:&quot;unknown error&quot;,&quot;message&quot;:&quot;Reached error page: about:neterror?e=nssFailure...ate@chrome://marionette/content/navigate.js:60:24\\nonNavigation@chrome://marionette/content/navigate.js:303:43\\n&quot;}}&apos;}
+
+    def check_response(self, response):
+        &quot;&quot;&quot;
+        Checks that a JSON response from the WebDriver does not have an error.
+    
+        :Args:
+         - response - The JSON response from the WebDriver server as a dictionary
+           object.
+    
+        :Raises: If the response contains an error message.
+        &quot;&quot;&quot;
+        status = response.get(&apos;status&apos;, None)
+        if status is None or status == ErrorCode.SUCCESS:
+            return
+        value = None
+        message = response.get(&quot;message&quot;, &quot;&quot;)
+        screen = response.get(&quot;screen&quot;, &quot;&quot;)
+        stacktrace = None
+        if isinstance(status, int):
+            value_json = response.get(&apos;value&apos;, None)
+            if value_json and isinstance(value_json, basestring):
+                import json
+                try:
+                    value = json.loads(value_json)
+                    if len(value.keys()) == 1:
+                        value = value[&apos;value&apos;]
+                    status = value.get(&apos;error&apos;, None)
+                    if status is None:
+                        status = value[&quot;status&quot;]
+                        message = value[&quot;value&quot;]
+                        if not isinstance(message, basestring):
+                            value = message
+                            message = message.get(&apos;message&apos;)
+                    else:
+                        message = value.get(&apos;message&apos;, None)
+                except ValueError:
+                    pass
+    
+        exception_class = ErrorInResponseException
+        if status in ErrorCode.NO_SUCH_ELEMENT:
+            exception_class = NoSuchElementException
+        elif status in ErrorCode.NO_SUCH_FRAME:
+            exception_class = NoSuchFrameException
+        elif status in ErrorCode.NO_SUCH_WINDOW:
+            exception_class = NoSuchWindowException
+        elif status in ErrorCode.STALE_ELEMENT_REFERENCE:
+            exception_class = StaleElementReferenceException
+        elif status in ErrorCode.ELEMENT_NOT_VISIBLE:
+            exception_class = ElementNotVisibleException
+        elif status in ErrorCode.INVALID_ELEMENT_STATE:
+            exception_class = InvalidElementStateException
+        elif status in ErrorCode.INVALID_SELECTOR \
+                or status in ErrorCode.INVALID_XPATH_SELECTOR \
+                or status in ErrorCode.INVALID_XPATH_SELECTOR_RETURN_TYPER:
+            exception_class = InvalidSelectorException
+        elif status in ErrorCode.ELEMENT_IS_NOT_SELECTABLE:
+            exception_class = ElementNotSelectableException
+        elif status in ErrorCode.ELEMENT_NOT_INTERACTABLE:
+            exception_class = ElementNotInteractableException
+        elif status in ErrorCode.INVALID_COOKIE_DOMAIN:
+            exception_class = InvalidCookieDomainException
+        elif status in ErrorCode.UNABLE_TO_SET_COOKIE:
+            exception_class = UnableToSetCookieException
+        elif status in ErrorCode.TIMEOUT:
+            exception_class = TimeoutException
+        elif status in ErrorCode.SCRIPT_TIMEOUT:
+            exception_class = TimeoutException
+        elif status in ErrorCode.UNKNOWN_ERROR:
+            exception_class = WebDriverException
+        elif status in ErrorCode.UNEXPECTED_ALERT_OPEN:
+            exception_class = UnexpectedAlertPresentException
+        elif status in ErrorCode.NO_ALERT_OPEN:
+            exception_class = NoAlertPresentException
+        elif status in ErrorCode.IME_NOT_AVAILABLE:
+            exception_class = ImeNotAvailableException
+        elif status in ErrorCode.IME_ENGINE_ACTIVATION_FAILED:
+            exception_class = ImeActivationFailedException
+        elif status in ErrorCode.MOVE_TARGET_OUT_OF_BOUNDS:
+            exception_class = MoveTargetOutOfBoundsException
+        elif status in ErrorCode.JAVASCRIPT_ERROR:
+            exception_class = JavascriptException
+        elif status in ErrorCode.SESSION_NOT_CREATED:
+            exception_class = SessionNotCreatedException
+        elif status in ErrorCode.INVALID_ARGUMENT:
+            exception_class = InvalidArgumentException
+        elif status in ErrorCode.NO_SUCH_COOKIE:
+            exception_class = NoSuchCookieException
+        elif status in ErrorCode.UNABLE_TO_CAPTURE_SCREEN:
+            exception_class = ScreenshotException
+        elif status in ErrorCode.ELEMENT_CLICK_INTERCEPTED:
+            exception_class = ElementClickInterceptedException
+        elif status in ErrorCode.INSECURE_CERTIFICATE:
+            exception_class = InsecureCertificateException
+        elif status in ErrorCode.INVALID_COORDINATES:
+            exception_class = InvalidCoordinatesException
+        elif status in ErrorCode.INVALID_SESSION_ID:
+            exception_class = InvalidSessionIdException
+        elif status in ErrorCode.UNKNOWN_METHOD:
+            exception_class = UnknownMethodException
+        else:
+            exception_class = WebDriverException
+        if value == &apos;&apos; or value is None:
+            value = response[&apos;value&apos;]
+        if isinstance(value, basestring):
+            if exception_class == ErrorInResponseException:
+                raise exception_class(response, value)
+            raise exception_class(value)
+        if message == &quot;&quot; and &apos;message&apos; in value:
+            message = value[&apos;message&apos;]
+    
+        screen = None
+        if &apos;screen&apos; in value:
+            screen = value[&apos;screen&apos;]
+    
+        stacktrace = None
+        if &apos;stackTrace&apos; in value and value[&apos;stackTrace&apos;]:
+            stacktrace = []
+            try:
+                for frame in value[&apos;stackTrace&apos;]:
+                    line = self._value_or_default(frame, &apos;lineNumber&apos;, &apos;&apos;)
+                    file = self._value_or_default(frame, &apos;fileName&apos;, &apos;&lt;anonymous&gt;&apos;)
+                    if line:
+                        file = &quot;%s:%s&quot; % (file, line)
+                    meth = self._value_or_default(frame, &apos;methodName&apos;, &apos;&lt;anonymous&gt;&apos;)
+                    if &apos;className&apos; in frame:
+                        meth = &quot;%s.%s&quot; % (frame[&apos;className&apos;], meth)
+                    msg = &quot;    at %s (%s)&quot;
+                    msg = msg % (meth, file)
+                    stacktrace.append(msg)
+            except TypeError:
+                pass
+        if exception_class == ErrorInResponseException:
+            raise exception_class(response, message)
+        elif exception_class == UnexpectedAlertPresentException:
+            alert_text = None
+            if &apos;data&apos; in value:
+                alert_text = value[&apos;data&apos;].get(&apos;text&apos;)
+            elif &apos;alert&apos; in value:
+                alert_text = value[&apos;alert&apos;].get(&apos;text&apos;)
+            raise exception_class(message, screen, stacktrace, alert_text)
+&gt;       raise exception_class(message, screen, stacktrace)
+E       selenium.common.exceptions.WebDriverException: Message: Reached error page: about:neterror?e=nssFailure2&amp;u=https%3A//authenticate.bt.com/adfs/ls/%3Fclient-request-id%3D95198218-6e5a-4d9a-b83d-cb816833c08c%26wa%3Dwsignin1.0%26wtrealm%3Durn%253afederation%253aMicrosoftOnline%26wctx%3DLoginOptions%253D3%2526estsredirect%253d2%2526estsrequest%253drQIIAY2RPWgUQQCFb24vZxL8CWJx6UK4JsLsz_zvQkCvkIjEEwuLa8Ls7GxuL7e75-7sJZdKxcLCwsYmYGN5WFkFq7TGJnVKC5FUYmUjuAqWgs3r3sfjezctZLtBl_HQ08SLoCeYgiQOBRRIMBgL6UskkI-1W1xfXuk8W309yI62jzc_PR3ik5dzsDE0ZlIGjpPOJnlh5Njo0thFMq3KeKy1sVWeOrIyQ-cYgDMAvgIwb3Y5UdRH2oeUcwGJChGU2MNQMI4F8QUXVJ83r_Vv10X0O_IiOdQXzaulHmtldqRSeZWZ782lOC_SnUlemiOrS5nrR9hzIdeRhiQMFfQJo5AiF8VaMQ9rNbdW_y7eLeRkaO8nWZTvl3amzfsaEVNMOPEhozqEhHIGhU85JFiGXFMZkZCdWuv_RDh2pGNZjc1nqzNNopm0yyosZCqzRGa3wj86zlrgonXZtYLFxfaK1WmsNX60wNuFWu_o-f1-78vPrSfpm4_vNtYbpwtOjO714zLdO-g_nhUPew9Go8PhFr6bzKbFHV31dvPqgCpv8Ghbik0eeK_a4FsbvLjU-LD0_8-cL9-oDbmwNof8NY8FrggwHpxcafwC0%26cbcxt%3D%26username%3Dvidya.subramanian%2540bt.com%26mkt%3D%26lc%3D&amp;c=UTF-8&amp;d=The%20connection%20to%20authenticate.bt.com%20was%20interrupted%20while%20the%20page%20was%20loading.
+
+..\..\..\..\..\appdata\local\programs\python\python38-32\lib\site-packages\selenium\webdriver\remote\errorhandler.py:242: WebDriverException</failure></testcase><testcase classname="AppTests.test_MyVehicles.Test_HPMyVehicles" file="AppTests\test_MyVehicles.py" line="16" name="test_MyVehicleDetails[firefox-WN15XYO-Service History]" time="77.206"></testcase><testcase classname="AppTests.test_MyVehicles.Test_HPMyVehicles" file="AppTests\test_MyVehicles.py" line="16" name="test_MyVehicleDetails[firefox-WN15XYO-Vehicle Documents]" time="72.934"></testcase><testcase classname="AppTests.test_MyVehicles.Test_HPMyVehicles" file="AppTests\test_MyVehicles.py" line="16" name="test_MyVehicleDetails[firefox-WN15XYO-Tyre History]" time="72.703"></testcase></testsuite></testsuites>
